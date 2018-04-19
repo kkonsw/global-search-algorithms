@@ -9,7 +9,7 @@
 
 class GSMethod {
 public:
-	std::vector<int> GetPoints();
+	std::vector<double> GetPoints();
 	double GetResEps() const;
 	int GetResNumSteps() const;
 
@@ -23,7 +23,7 @@ protected:
 	double resEps;	    // достигнутая погрешность
 	int numSteps;	    // число шагов
 	int resNumSteps;    // итоговое число шагов
-	std::vector<int> points; // точки испытаний
+	std::vector<double> points; // точки испытаний
 	Point currMinPoint; // текущая точка минимума
 
 	virtual double GetR(const double xi_1, const double xi_2) = 0; // характеристика интервала
@@ -42,12 +42,30 @@ protected:
 	double GetNewX(const double xt_1, const double xt_2);
 };
 
-class PiyavskyMethod : public GSMethod {
+class AdvancedMethod : public GSMethod {
+public:
+	AdvancedMethod(const double r, const double a, const double b, const double c, const double d,
+		const double x1, const double x2, const int numSteps, const double eps);
+
+protected:
+	double r; // параметр метода
+
+	double GetM();
+	double GetNewX(const double xt_1, const double xt_2);
+};
+
+class PiyavskyMethod : public AdvancedMethod {
 public:
 	PiyavskyMethod(const double r, const double a, const double b, const double c, const double d,
 		const double x1, const double x2, const int numSteps, const double eps);
 protected:
-	double r; // параметр метода
+	double GetR(const double xi_1, const double xi_2);	
+};
+
+class StronginMethod : public AdvancedMethod {
+public:
+	StronginMethod(const double r, const double a, const double b, const double c, const double d,
+		const double x1, const double x2, const int numSteps, const double eps);
+protected:
 	double GetR(const double xi_1, const double xi_2);
-	double GetNewX(const double xt_1, const double xt_2);
 };

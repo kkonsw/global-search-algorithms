@@ -1,6 +1,6 @@
 #include "gs-algorithms.h"
 
-std::vector<int> GSMethod::GetPoints()
+std::vector<double> GSMethod::GetPoints()
 {
 	return points;
 }
@@ -34,7 +34,7 @@ Point GSMethod::GetMin()
 	{
 		n++;
 		r_max = std::numeric_limits<double>::lowest();
-		for (int i = 1; i < points.size(); i++)
+		for (int i = 1; i < (int)points.size(); i++)
 		{
 			r = GetR(points[i-1], points[i]);
 			if (r > r_max)
@@ -110,4 +110,53 @@ double SimpleMethod::GetR(const double xi_1, const double xi_2)
 double SimpleMethod::GetNewX(const double xt_1, const double xt_2)
 {
 	return 0.5 * (xt_1 + xt_2);
+}
+
+AdvancedMethod::AdvancedMethod(const double r, const double a, const double b, const double c, const double d, const double x1, const double x2, const int numSteps, const double eps)
+{
+	(*this).r = r;
+	(*this).a = a;
+	(*this).b = b;
+	(*this).c = c;
+	(*this).d = d;
+	(*this).x1 = x1;
+	(*this).x2 = x2;
+	(*this).numSteps = numSteps;
+	(*this).eps = eps;
+}
+
+double AdvancedMethod::GetM()
+{
+	double m = std::numeric_limits<double>::lowest();
+
+	for (int i = 1; i < (int)points.size(); i++)
+	{
+		m = std::max(m, fabs(f(points[i]) - f(points[i-1])) / (points[i] - points[i-1]));
+	}
+
+	if (m > 0)
+		return r * m;
+	else
+		return 1.0;
+}
+
+double AdvancedMethod::GetNewX(const double xt_1, const double xt_2)
+{
+	return 0.5 * (xt_2 + xt_1) - (f(xt_2) - f(xt_1)) / (2.0 * GetM());
+}
+
+PiyavskyMethod::PiyavskyMethod(const double r, const double a, const double b, const double c, const double d, 
+	const double x1, const double x2, const int numSteps, const double eps) : AdvancedMethod(r, a, b, c, d, x1, x2, numSteps, eps) { }
+
+double PiyavskyMethod::GetR(const double xi_1, const double xi_2)
+{
+	return 0.5 * GetM() * (xi_2 - xi_1) - (f(xi_2) + f(xi_1)) / 2.0;
+}
+
+StronginMethod::StronginMethod(const double r, const double a, const double b, const double c, const double d, 
+	const double x1, const double x2, const int numSteps, const double eps) : AdvancedMethod(r, a, b, c, d, x1, x2, numSteps, eps) { }
+
+double StronginMethod::GetR(const double xi_1, const double xi_2)
+{
+	return GetM() * (xi_2 - xi_1) + (f(xi_2) - f(xi_1)) * (f(xi_2) - f(xi_1)) / (GetM() * (xi_2 - xi_1)) - 2.0 * (f(xi_2) + f(xi_1));
 }
