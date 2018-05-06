@@ -1,3 +1,10 @@
+// Copyright 2018 Kuznetsov Konstantin
+
+#include <vector>
+#include <algorithm>
+#include <cmath>
+#include <limits>
+
 #include "gs-algorithms.h"
 
 std::vector<double> GSMethod::GetPoints()
@@ -20,7 +27,7 @@ double GSMethod::f(const double x)
 	return a * sin(b * x) + c * cos(d * x);
 }
 
-Point GSMethod::GetMin()
+MyPoint GSMethod::GetMin()
 {
 	InitializePoints();
 	SetUpFirstMinPoint();

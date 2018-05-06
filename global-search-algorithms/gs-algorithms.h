@@ -1,9 +1,8 @@
+// Copyright 2018 Kuznetsov Konstantin
+
 #pragma once
 
 #include <vector>
-#include <algorithm>
-#include <cmath>
-#include <limits>
 
 #include "point.h"
 
@@ -14,7 +13,7 @@ public:
 	int GetResNumSteps() const;
 
 	double f(const double x); // a*sin(bx) + c*cos(dx)
-	Point GetMin(); // найти минимум функции на [x1, x2]
+	MyPoint GetMin(); // найти минимум функции на [x1, x2]
 
 protected:
 	double a, b, c, d;  // параметры функции 
@@ -24,7 +23,7 @@ protected:
 	int numSteps;	    // число шагов
 	int resNumSteps;    // итоговое число шагов
 	std::vector<double> points; // точки испытаний
-	Point currMinPoint; // текущая точка минимума
+	MyPoint currMinPoint; // текущая точка минимума
 
 	virtual double GetR(const double xi_1, const double xi_2) = 0; // характеристика интервала
 	virtual double GetNewX(const double xt_1, const double xt_2) = 0; // новая точка испытания

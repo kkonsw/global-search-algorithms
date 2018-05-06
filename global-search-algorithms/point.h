@@ -1,9 +1,11 @@
+// Copyright 2018 Kuznetsov Konstantin
+
 #pragma once
 
-class Point {
+class MyPoint {
 public:
-	Point();
-	Point(const double x_, const double y_);
+	MyPoint();
+	MyPoint(const double x_, const double y_);
 
 	double GetX() const;
 	double GetY() const;

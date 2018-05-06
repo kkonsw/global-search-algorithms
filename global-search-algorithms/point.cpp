@@ -1,33 +1,35 @@
+// Copyright 2018 Kuznetsov Konstantin
+
 #include "point.h"
 
-Point::Point()
+MyPoint::MyPoint()
 {
 	x = 0.0;
 	y = 0.0;
 }
 
-Point::Point(const double x_, const double y_)
+MyPoint::MyPoint(const double x_, const double y_)
 {
 	x = x_;
 	y = y_;
 }
 
-double Point::GetX() const
+double MyPoint::GetX() const
 {
 	return x;
 }
 
-double Point::GetY() const
+double MyPoint::GetY() const
 {
 	return y;
 }
 
-void Point::SetX(const double x_)
+void MyPoint::SetX(const double x_)
 {
 	x = x_;
 }
 
-void Point::SetY(const double y_)
+void MyPoint::SetY(const double y_)
 {
 	y = y_;
 }
