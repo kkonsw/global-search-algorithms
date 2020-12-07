@@ -44,6 +44,11 @@ System::Void globalsearchalgorithms::MainForm::button_solve_Click(System::Object
 
     DrawFunction();
     ShowPoints(points);
+
+    textBox_resx->Text = System::Convert::ToString(result.GetX());
+    textBox_resf->Text = System::Convert::ToString(result.GetY());
+    textBox_resEps->Text = System::Convert::ToString(resEps);
+    textBox_resSteps->Text = System::Convert::ToString(resNumSteps);
 }
 
 void globalsearchalgorithms::MainForm::CreateMethod()

@@ -92,8 +92,13 @@ void GSMethod::SetUpFirstMinPoint()
 void GSMethod::SetUpNewMinPoint(const double x)
 {
 	double y = f(x);
-	currMinPoint.SetX(x);
-	currMinPoint.SetY(y);
+    double f_curr = f(currMinPoint.GetX());  // текущее значение минимума
+
+    if (f_curr > y)
+    {
+        currMinPoint.SetX(x);
+        currMinPoint.SetY(y);
+    }
 }
 
 SimpleMethod::SimpleMethod(const double a, const double b, const double c, const double d, 
@@ -111,12 +116,12 @@ SimpleMethod::SimpleMethod(const double a, const double b, const double c, const
 
 double SimpleMethod::GetR(const double xi_1, const double xi_2)
 {
-	return xi_2 - xi_1;
+	return fabs(xi_2 - xi_1);
 }
 
 double SimpleMethod::GetNewX(const double xt_1, const double xt_2)
 {
-	return 0.5 * (xt_1 + xt_2);
+	return (0.5 * (xt_1 + xt_2));
 }
 
 AdvancedMethod::AdvancedMethod(const double r, const double a, const double b, const double c, const double d, const double x1, const double x2, const int numSteps, const double eps)

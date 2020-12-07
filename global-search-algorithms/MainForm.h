@@ -31,7 +31,9 @@ namespace globalsearchalgorithms {
 		int resNumSteps;
 		double eps;
 		double resEps;
-        GSMethod *method;
+    private: System::Windows::Forms::Label^  label1;
+    protected:
+        GSMethod * method;
 
 	public:
 		MainForm(void)
@@ -76,7 +78,7 @@ namespace globalsearchalgorithms {
 	private: System::Windows::Forms::TextBox^  textBox_c;
 	private: System::Windows::Forms::TextBox^  textBox_d;
 	private: System::Windows::Forms::GroupBox^  groupBox_function;
-	private: System::Windows::Forms::PictureBox^  pictureBox;
+
 	private: System::Windows::Forms::Label^  label_x2;
 	private: System::Windows::Forms::Label^  label_x1;
 	private: System::Windows::Forms::Label^  label_d;
@@ -113,9 +115,9 @@ namespace globalsearchalgorithms {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-            System::Windows::Forms::DataVisualization::Charting::ChartArea^  chartArea1 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
-            System::Windows::Forms::DataVisualization::Charting::Series^  series1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
-            System::Windows::Forms::DataVisualization::Charting::Series^  series2 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+            System::Windows::Forms::DataVisualization::Charting::ChartArea^  chartArea3 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+            System::Windows::Forms::DataVisualization::Charting::Series^  series5 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+            System::Windows::Forms::DataVisualization::Charting::Series^  series6 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
             this->textBox_a = (gcnew System::Windows::Forms::TextBox());
             this->textBox_b = (gcnew System::Windows::Forms::TextBox());
             this->textBox_c = (gcnew System::Windows::Forms::TextBox());
@@ -129,7 +131,6 @@ namespace globalsearchalgorithms {
             this->label_a = (gcnew System::Windows::Forms::Label());
             this->textBox_x2 = (gcnew System::Windows::Forms::TextBox());
             this->textBox_x1 = (gcnew System::Windows::Forms::TextBox());
-            this->pictureBox = (gcnew System::Windows::Forms::PictureBox());
             this->groupBox_method = (gcnew System::Windows::Forms::GroupBox());
             this->button_solve = (gcnew System::Windows::Forms::Button());
             this->radioButton3 = (gcnew System::Windows::Forms::RadioButton());
@@ -152,8 +153,8 @@ namespace globalsearchalgorithms {
             this->label_r = (gcnew System::Windows::Forms::Label());
             this->label_eps = (gcnew System::Windows::Forms::Label());
             this->label_nMax = (gcnew System::Windows::Forms::Label());
+            this->label1 = (gcnew System::Windows::Forms::Label());
             this->groupBox_function->SuspendLayout();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox))->BeginInit();
             this->groupBox_method->SuspendLayout();
             (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart))->BeginInit();
             this->groupBox_results->SuspendLayout();
@@ -195,6 +196,7 @@ namespace globalsearchalgorithms {
             // groupBox_function
             // 
             this->groupBox_function->BackColor = System::Drawing::SystemColors::Control;
+            this->groupBox_function->Controls->Add(this->label1);
             this->groupBox_function->Controls->Add(this->label_x2);
             this->groupBox_function->Controls->Add(this->label_x1);
             this->groupBox_function->Controls->Add(this->label_d);
@@ -203,7 +205,6 @@ namespace globalsearchalgorithms {
             this->groupBox_function->Controls->Add(this->label_a);
             this->groupBox_function->Controls->Add(this->textBox_x2);
             this->groupBox_function->Controls->Add(this->textBox_x1);
-            this->groupBox_function->Controls->Add(this->pictureBox);
             this->groupBox_function->Controls->Add(this->textBox_a);
             this->groupBox_function->Controls->Add(this->textBox_c);
             this->groupBox_function->Controls->Add(this->textBox_d);
@@ -214,6 +215,7 @@ namespace globalsearchalgorithms {
             this->groupBox_function->TabIndex = 4;
             this->groupBox_function->TabStop = false;
             this->groupBox_function->Text = L"Функция";
+            this->groupBox_function->Enter += gcnew System::EventHandler(this, &MainForm::groupBox_function_Enter);
             // 
             // label_x2
             // 
@@ -285,15 +287,6 @@ namespace globalsearchalgorithms {
             this->textBox_x1->TabIndex = 5;
             this->textBox_x1->Text = L"1,0";
             // 
-            // pictureBox
-            // 
-            this->pictureBox->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-            this->pictureBox->Location = System::Drawing::Point(49, 44);
-            this->pictureBox->Name = L"pictureBox";
-            this->pictureBox->Size = System::Drawing::Size(250, 58);
-            this->pictureBox->TabIndex = 4;
-            this->pictureBox->TabStop = false;
-            // 
             // groupBox_method
             // 
             this->groupBox_method->Controls->Add(this->button_solve);
@@ -354,23 +347,23 @@ namespace globalsearchalgorithms {
             // 
             this->chart->BorderlineColor = System::Drawing::Color::Black;
             this->chart->BorderlineDashStyle = System::Windows::Forms::DataVisualization::Charting::ChartDashStyle::Solid;
-            chartArea1->Name = L"ChartArea1";
-            this->chart->ChartAreas->Add(chartArea1);
+            chartArea3->Name = L"ChartArea1";
+            this->chart->ChartAreas->Add(chartArea3);
             this->chart->Location = System::Drawing::Point(472, 45);
             this->chart->Name = L"chart";
-            series1->BorderWidth = 2;
-            series1->ChartArea = L"ChartArea1";
-            series1->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Spline;
-            series1->Color = System::Drawing::Color::Black;
-            series1->Name = L"Series1";
-            series2->ChartArea = L"ChartArea1";
-            series2->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Point;
-            series2->Color = System::Drawing::Color::Crimson;
-            series2->MarkerSize = 3;
-            series2->MarkerStyle = System::Windows::Forms::DataVisualization::Charting::MarkerStyle::Diamond;
-            series2->Name = L"Series2";
-            this->chart->Series->Add(series1);
-            this->chart->Series->Add(series2);
+            series5->BorderWidth = 2;
+            series5->ChartArea = L"ChartArea1";
+            series5->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Spline;
+            series5->Color = System::Drawing::Color::Black;
+            series5->Name = L"Series1";
+            series6->ChartArea = L"ChartArea1";
+            series6->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Point;
+            series6->Color = System::Drawing::Color::Crimson;
+            series6->MarkerSize = 3;
+            series6->MarkerStyle = System::Windows::Forms::DataVisualization::Charting::MarkerStyle::Diamond;
+            series6->Name = L"Series2";
+            this->chart->Series->Add(series5);
+            this->chart->Series->Add(series6);
             this->chart->Size = System::Drawing::Size(708, 438);
             this->chart->TabIndex = 6;
             this->chart->Text = L"chart1";
@@ -522,6 +515,17 @@ namespace globalsearchalgorithms {
             this->label_nMax->TabIndex = 0;
             this->label_nMax->Text = L"Макс. число шагов:";
             // 
+            // label1
+            // 
+            this->label1->AutoSize = true;
+            this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12));
+            this->label1->Location = System::Drawing::Point(86, 67);
+            this->label1->Name = L"label1";
+            this->label1->Size = System::Drawing::Size(215, 29);
+            this->label1->TabIndex = 13;
+            this->label1->Text = L"a(sinbx) + c(cosdx)";
+            this->label1->Click += gcnew System::EventHandler(this, &MainForm::label1_Click);
+            // 
             // MainForm
             // 
             this->AutoScaleDimensions = System::Drawing::SizeF(9, 20);
@@ -539,7 +543,6 @@ namespace globalsearchalgorithms {
             this->Text = L"Характеристические алгоритмы глобального поиска";
             this->groupBox_function->ResumeLayout(false);
             this->groupBox_function->PerformLayout();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox))->EndInit();
             this->groupBox_method->ResumeLayout(false);
             this->groupBox_method->PerformLayout();
             (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart))->EndInit();
@@ -556,5 +559,9 @@ namespace globalsearchalgorithms {
     private: void CreateMethod();
     private: void DrawFunction();
     private: void ShowPoints(std::vector<double> &points);
+private: System::Void groupBox_function_Enter(System::Object^  sender, System::EventArgs^  e) {
+}
+private: System::Void label1_Click(System::Object^  sender, System::EventArgs^  e) {
+}
 };
 }
